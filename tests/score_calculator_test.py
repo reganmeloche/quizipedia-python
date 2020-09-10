@@ -1,6 +1,10 @@
 import unittest
 from app.ScoreCalculator import ScoreCalculator
 import spacy
+import nltk
+nltk.download('words')
+from nltk.corpus import words
+
 from app.commonWords import common_words
 from app.ScoreOptions import ScoreOptions
 
@@ -9,9 +13,11 @@ class TestScoreCalculator(unittest.TestCase):
         # nlp should come from a func - reuse
         nlp = spacy.load('en_core_web_sm')
         nlp.Defaults.stop_words |= common_words
+        word_set = set(words.words())
+
         self.mock_doc = nlp('Test alpha xyzhungeepgy jupiter anthropomorphic')
         options = ScoreOptions(10, 3, 3, 0)
-        self.sut = ScoreCalculator(options)
+        self.sut = ScoreCalculator(options, word_set)
     
     def test_0(self):
         result = self.sut.calculate(self.mock_doc[0])

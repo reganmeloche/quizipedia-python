@@ -2,4 +2,4 @@ flask
 gunicorn
 spacy
 jsonpickle
-pyenchant
+nltk

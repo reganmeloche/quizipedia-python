@@ -2,6 +2,9 @@ from flask import Flask, request, Response, jsonify
 import json
 import jsonpickle
 import spacy
+import nltk
+nltk.download('words')
+from nltk.corpus import words
 
 from .parser import Parser
 from .QuizBuilderV2 import QuizBuilderV2
@@ -16,6 +19,7 @@ with app.app_context():
     # Eventually have a separate file for nlp setup
     nlp = spacy.load('en_core_web_sm')
     nlp.Defaults.stop_words |= common_words
+    word_set = set(words.words())
     
     @app.route("/") 
     def home_view(): 
@@ -45,10 +49,10 @@ with app.app_context():
         return Response(json_response, mimetype='application/json')
     
 
-###############
-### HELPERS ###
-###############
+    ###############
+    ### HELPERS ###
+    ###############
 
-def _get_score_calculator():
-    score_options = ScoreOptions(10, 3, 3, 2) # get from config
-    return ScoreCalculator(score_options)
+    def _get_score_calculator():
+        score_options = ScoreOptions(10, 3, 3, 2) # get from config
+        return ScoreCalculator(score_options, word_set)

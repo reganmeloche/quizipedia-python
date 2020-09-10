@@ -1,12 +1,11 @@
 from .WordScore import WordScore
 import random
-import enchant
 
 class ScoreCalculator:
-  def __init__(self, options):
+  def __init__(self, options, word_set):
     self.__word_distance = 0
     self.__used_words = []
-    self.__word_checker = enchant.Dict("en_US") # inject/interface...
+    self.__word_set = word_set
 
     # Options
     self.__random_factor = options.random_factor 
@@ -30,7 +29,7 @@ class ScoreCalculator:
 
     score.length_score = self.__initial_score - max(0, len(token) - 10)
 
-    if not self.__word_checker.check(token.text):
+    if token.lemma_.lower() not in self.__word_set:
       score.real_word_score -= self.__non_word_penalty
     
     for x in [x for x in self.__used_words if x == token.text]:
