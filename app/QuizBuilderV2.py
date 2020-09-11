@@ -5,6 +5,7 @@ from spacy.matcher import Matcher
 from .ScoreCalculator import ScoreCalculator
 from .RelevantWord import RelevantWord
 from .GameBit import GameBit
+from .AnalyticsBit import AnalyticsBit
 from .ScoreOptions import ScoreOptions
 
 class QuizBuilderV2:
@@ -15,6 +16,7 @@ class QuizBuilderV2:
     self.score_calculator = score_calculator
     self.game_array = []
     self.word_list = []
+    self.analytics = { 'data': []}
     self.tracking_index = 0
 
   def build(self, req_data):
@@ -29,11 +31,9 @@ class QuizBuilderV2:
   
     game_array = copy.deepcopy(self.game_array)
     relevant_words = copy.deepcopy(self.word_list)
-    result = QuizResult(game_id, quiz_text, game_array, relevant_words)
-
-    # Haven't figured out this part yet...
-    result.analytics = None
-
+    analytics = copy.deepcopy(self.analytics)
+    result = QuizResult(game_id, quiz_text, game_array, relevant_words, analytics)
+    
     return result
 
 
@@ -42,8 +42,9 @@ class QuizBuilderV2:
   ################
   def __handle_new_line(self, token):
     self.__load_span(token.i)
-    new_line_bit = GameBit('newLine', '')
-    self.game_array.append(new_line_bit)
+    for i in range(token.text.count('\n')):
+      new_line_bit = GameBit('newLine', '')
+      self.game_array.append(new_line_bit)
 
   def __handle_regular_word(self, token):
     # May not want to increase word distance on thigns like punct, etc
@@ -95,7 +96,7 @@ class QuizBuilderV2:
 
       if (score.total() > QuizBuilderV2.score_threshold):
         self.__handle_relevant_word(game_id, token, score)
-        # Do something with the score and analytics...
+        self.analytics['data'].append(AnalyticsBit(token.text, score))
         return
     
     self.__handle_regular_word(token)  
