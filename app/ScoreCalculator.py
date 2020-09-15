@@ -26,6 +26,7 @@ class ScoreCalculator:
   ## Add some descriptions here
   def calculate(self, token):
     score = WordScore()
+    #print(token, token.pos, token.pos_, token.ent_type, token.ent_type_)
 
     score.length_score = self.__initial_score - max(0, len(token) - 10)
 
@@ -35,10 +36,32 @@ class ScoreCalculator:
     for x in [x for x in self.__used_words if x == token.text]:
       score.repeat_score -= self.__repeat_penalty
 
-    # Want something to measure the relevance with spacy...
+    score.word_type_score += self._get_word_type_score(token)
+    
+    # Could add something for entity type recognition (token.ent_type_)...
 
     score.distance_score += self.__word_distance
 
     score.random_score += random.randint(0, self.__random_factor*2) - self.__random_factor
 
     return score
+
+  def _get_word_type_score(self, token):
+
+    noun = 92
+    #propn = 96
+    verb = 100
+    adj = 84
+    num = 93
+    adv = 86
+    minus_list = [num, adv, verb]
+    plus_list = [noun, adj]
+    result = 0
+
+    pos = token.pos
+    if pos in minus_list:
+      result = -1
+    elif pos in plus_list:
+      result = +1
+    
+    return result

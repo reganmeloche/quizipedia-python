@@ -8,7 +8,6 @@ from nltk.corpus import words
 
 from .parser import Parser
 from .QuizBuilderV2 import QuizBuilderV2
-from .QuizBuilderV1 import QuizBuilderV1
 from .ScoreCalculator import ScoreCalculator
 from .ScoreOptions import ScoreOptions
 from .commonWords import common_words
@@ -39,15 +38,6 @@ with app.app_context():
         quiz_result = builder.build(req_data)
         json_response = jsonpickle.encode(quiz_result)
         return Response(json_response, mimetype='application/json')
-
-    @app.route('/v1/quiz', methods=['POST'])
-    def quizLegacy():
-        builder = QuizBuilderV1(nlp)
-        req_data = request.get_json()
-        quiz_result = builder.build(req_data)
-        json_response = jsonpickle.encode(quiz_result)
-        return Response(json_response, mimetype='application/json')
-    
 
     ###############
     ### HELPERS ###

@@ -5,9 +5,10 @@ class WordScore:
     self.distance_score = 0
     self.random_score = 0
     self.repeat_score = 0
+    self.word_type_score = 0
 
   def total(self):
-    return self.length_score + self.real_word_score + self.distance_score + self.random_score + self.repeat_score
+    return self.length_score + self.real_word_score + self.distance_score + self.random_score + self.repeat_score + self.word_type_score
 
   def print_me(self):
     print('-- length', self.length_score)
@@ -15,4 +16,5 @@ class WordScore:
     print('-- distance', self.distance_score)
     print('-- random', self.random_score)
     print('-- repeat', self.repeat_score)
+    print('-- word type', self.word_type_score)
     print('-- TOTAL', self.total())

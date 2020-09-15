@@ -26,6 +26,7 @@ class TestScoreCalculator(unittest.TestCase):
         self.assertEqual(result.real_word_score, 0)
         self.assertEqual(result.repeat_score, 0)
         self.assertEqual(result.distance_score, 0)
+        self.assertEqual(result.word_type_score, 0)
         self.assertEqual(result.total(), 10)
     
     def test_1(self):
@@ -37,7 +38,8 @@ class TestScoreCalculator(unittest.TestCase):
         self.assertEqual(result.real_word_score, 0)
         self.assertEqual(result.repeat_score, -3)
         self.assertEqual(result.distance_score, 1)
-        self.assertEqual(result.total(), 8)
+        self.assertEqual(result.word_type_score, 1)
+        self.assertEqual(result.total(), 9)
 
     def test_2(self):
         result = self.sut.calculate(self.mock_doc[2])
@@ -46,6 +48,7 @@ class TestScoreCalculator(unittest.TestCase):
         self.assertEqual(result.real_word_score, -3)
         self.assertEqual(result.repeat_score, 0)
         self.assertEqual(result.distance_score, 0)
+        self.assertEqual(result.word_type_score, 0)
         self.assertEqual(result.total(), 5)
 
 if __name__ == '__main__':
