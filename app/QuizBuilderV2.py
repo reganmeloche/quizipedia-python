@@ -16,7 +16,7 @@ class QuizBuilderV2:
     self.score_calculator = score_calculator
     self.game_array = []
     self.word_list = []
-    self.analytics = { 'data': []}
+    self.analytics = { 'relevant_words': []}
     self.tracking_index = 0
 
   def build(self, req_data):
@@ -96,7 +96,7 @@ class QuizBuilderV2:
 
       if (score.total() > QuizBuilderV2.score_threshold):
         self.__handle_relevant_word(game_id, token, score)
-        self.analytics['data'].append(AnalyticsBit(token.text, score))
+        self.analytics['relevant_words'].append(AnalyticsBit(token.text, score))
         return
     
     self.__handle_regular_word(token)  
