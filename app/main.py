@@ -10,18 +10,10 @@ from .config import ProductionConfig, DevelopmentConfig
 
 app = Flask(__name__) 
 
-print(os.environ.get("FLASK_ENV"))
-print(app.env)
-print(app.config["ENV"])
-
 if (app.env == 'production'):
     app.config.from_object(ProductionConfig)
 else:
     app.config.from_object(DevelopmentConfig)
-
-print(app.config["JWT_SECRET"])
-print(app.config["TEST_CONFIG_VALUE"])
-print(app.config["GAME_OPTIONS"])
 
 with app.app_context():
     # Init and Dependency Injection
