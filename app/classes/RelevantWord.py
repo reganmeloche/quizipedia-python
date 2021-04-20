@@ -1,6 +1,6 @@
 class RelevantWord:
   def __init__(self, game_id, word, stripped_word, index):
-    self.game_id = game_id
+    self.game_id = game_id #TODO: Remove this. This is a data storage thing?
     self.answer = word
     self.stripped_word = stripped_word
     self.index = index

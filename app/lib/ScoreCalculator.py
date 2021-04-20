@@ -1,4 +1,4 @@
-from .WordScore import WordScore
+from ..classes.WordScore import WordScore
 import random
 
 class ScoreCalculator:
