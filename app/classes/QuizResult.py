@@ -1,3 +1,5 @@
+import copy
+
 class QuizResult:
   def __init__(self, id, original_text, game_array, relevant_words, analytics):
     self.id = id

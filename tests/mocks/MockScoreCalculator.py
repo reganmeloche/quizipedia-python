@@ -1,4 +1,4 @@
-from app.WordScore import WordScore
+from app.classes.WordScore import WordScore
 
 class MockScoreCalculator:
   #def __init__(self):

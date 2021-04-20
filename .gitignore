@@ -4,3 +4,5 @@ tests/__pycache__
 tests/mocks/__pycache__
 
 todo.txt
+
+*.pyc
