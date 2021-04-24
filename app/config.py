@@ -12,13 +12,18 @@ class Config(object):
     GAME_OPTIONS = {
         'SCORE_THRESHOLD': os.environ.get('GAME_OPTIONS.SCORE_THRESHOLD',default=13)
     }
-    JWT_SECRET = "default-jwt-secret"
+    AUTH_OPTIONS = {
+        'JWT_SECRET': 'my-secret',
+        'API_USER': 'quizipedia-api'
+    }
     TEST_CONFIG_VALUE = "my-default-value"
 
 class ProductionConfig(Config):
-    JWT_SECRET = os.environ.get('JWT_SECRET')
+    AUTH_OPTIONS = {
+        'JWT_SECRET': os.environ.get('AUTH_OPTIONS.JWT_SECRET'),
+        'API_USER': 'quizipedia-api'
+    }
     TEST_CONFIG_VALUE = "my-prod-value"
 
 class DevelopmentConfig(Config):
-    JWT_SECRET = "my-jwt-secret-dev"
     TEST_CONFIG_VALUE = "my-dev-value"
