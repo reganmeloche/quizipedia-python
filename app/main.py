@@ -44,7 +44,6 @@ with app.app_context():
         quiz_result = quiz_handler.handle(req_data)
         json_response = jsonpickle.encode(quiz_result)
         return Response(json_response, mimetype='application/json')
-        # TODO: catch auth error and send 401...
     
     @app.errorhandler(AuthError)          
     def handle_auth(e):          
