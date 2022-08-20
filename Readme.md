@@ -1,6 +1,11 @@
 ## Notes
 The quiz builder call requires a JWT encoded using a pre-defined secret.
 
+## Development
+
+For running in dev: `export FLASK_ENV=development`
+
+Use the `/token` endpoint to get an auth token, and set that as an Auth Bearer token in a postman client.
 
 ## Running
 
